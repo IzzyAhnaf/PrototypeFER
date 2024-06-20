@@ -30,6 +30,11 @@ fastify.post('/Capture', async (request, reply) => {
 
 fastify.post('/Record', async (request, reply) => {
 const parts = await request.parts();
+
+if (!fs.existsSync(path.join(__dirname, 'video'))) {
+    fs.mkdirSync(path.join(__dirname, 'video'));
+}
+
   for await (const part of parts) {
     if (part.file) {
       const filename = `video-${Date.now()}.webm`;
